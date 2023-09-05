@@ -36,26 +36,26 @@ class Network
     {
       await takeToken();
       Response response;
-      adres = adres ?? "";
+      adres = adres == null ? "" : "/$adres";
       switch (process)
       {
         case "Get":
-          response = await dio.get("$baseUrl$url/$adres", queryParameters: parametre, data: data);
+          response = await dio.get("$baseUrl$url$adres", queryParameters: parametre, data: data);
           print("GET ÇALIŞTI | Status Kodu: ${response.statusCode} | Url: $baseUrl$url/$adres | Adres: $adres | Parametre: $parametre | Veri: $data");
           return response.data;
 
         case "Post":
-          response = await dio.post("$baseUrl$url/$adres", queryParameters: parametre, data: data);
+          response = await dio.post("$baseUrl$url$adres", queryParameters: parametre, data: data);
           print("POST ÇALIŞTI | Status Kodu: ${response.statusCode} | Url: $baseUrl$url/$adres | Adres: $adres | Parametre: $parametre | Veri: $data");
           return response.data;
 
         case "Put":
-          response = await dio.put("$baseUrl$url/$adres", queryParameters: parametre, data: data);
+          response = await dio.put("$baseUrl$url$adres", queryParameters: parametre, data: data);
           print("PUT ÇALIŞTI | Status Kodu: ${response.statusCode} | Url: $baseUrl$url/$adres | Adres: $adres | Parametre: $parametre | Veri: $data");
           return response.data;
 
         case "Delete":
-          response = await dio.delete("$baseUrl$url/$adres", queryParameters: parametre, data: data);
+          response = await dio.delete("$baseUrl$url$adres", queryParameters: parametre, data: data);
           print("DELETE ÇALIŞTI | Status Kodu: ${response.statusCode} | Url: $baseUrl$url/$adres | Id: $adres | Parametre: $parametre | Veri: $data");
           return response.data;
 
@@ -67,7 +67,6 @@ class Network
     {
       if(e.response?.statusCode == 401)
       {
-        storage.deleteAll();
         throw Exception("YETKİSİZ GİRİŞ HATASI | Status Kodu: ${e.response?.statusCode} | İşlem: $process | Url: $baseUrl$url/$adres | Adres: $adres | Veri: $data\nStatus Mesajı: ${e.response?.statusMessage}\n");
       }
 
