@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tester/Servisler/Languages.dart';
-import 'package:tester/islem_front.dart';
+import 'package:tester/Home.dart';
 import 'Servisler/Network.dart';
 
 class dil_destegi extends StatefulWidget {

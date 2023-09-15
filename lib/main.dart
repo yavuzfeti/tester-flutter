@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tester/Animasyon.dart';
 import 'package:tester/Servisler/Languages.dart';
-import 'package:tester/tarih.dart';
 
 final navKey = GlobalKey<NavigatorState>();
 
@@ -36,9 +35,7 @@ void main()
         ),
         debugShowCheckedModeBanner: false,
         navigatorKey: navKey,
-        //home: VikiAra(),
-        //home: animasyon(),
-        home: tarih(),
+        home: animasyon(),
       ),
     );
 }
