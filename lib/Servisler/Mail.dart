@@ -1,4 +1,4 @@
-import 'package:mailer/mailer.dart';
+/*import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
 class Mail
@@ -64,4 +64,4 @@ class Mail
       throw Exception("Mail gönderilirken hata oluştu: $e");
     }
   }
-}
+}*/
