@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 class animasyon extends StatefulWidget {
   @override
@@ -55,4 +55,4 @@ class _animasyonState extends State<animasyon> with SingleTickerProviderStateMix
       ),
     );
   }
-}
+}*/

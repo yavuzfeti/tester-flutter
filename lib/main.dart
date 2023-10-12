@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tester/Animasyon.dart';
-import 'package:tester/Servisler/Languages.dart';
+import 'package:tester/BackgroundFront.dart';
+import 'package:tester/BackgroundTask.dart';
 
 final navKey = GlobalKey<NavigatorState>();
 
-void main()
+void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
-  Languages.selectLanguage();
+
+  Background.start();
 
   runApp(
       MaterialApp(
@@ -35,7 +36,7 @@ void main()
         ),
         debugShowCheckedModeBanner: false,
         navigatorKey: navKey,
-        home: animasyon(),
+        home: BackgroundFront(),
       ),
     );
 }

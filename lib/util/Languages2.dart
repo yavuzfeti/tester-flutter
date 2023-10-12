@@ -1,4 +1,4 @@
-import 'dart:ui';
+/*import 'dart:ui';
 
 import 'Servisler/Network.dart';
 
@@ -25,4 +25,4 @@ class Languages2
   {
     return words[languageCode];
   }
-}
+}*/
