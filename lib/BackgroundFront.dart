@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tester/BackgroundTask.dart';
 
 class BackgroundFront extends StatefulWidget {
   const BackgroundFront({super.key});
@@ -10,6 +11,8 @@ class BackgroundFront extends StatefulWidget {
 class _BackgroundFrontState extends State<BackgroundFront> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(child: Text(Background.index.toString()),),
+    );
   }
 }

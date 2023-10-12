@@ -8,7 +8,7 @@ import 'package:signalr_core/signalr_core.dart';
 
 class Background
 {
-  static int index = 1;
+  static int index = 0;
   static String? userId;
 
   static final hubConnection = HubConnectionBuilder().withUrl('https://kursdefteri.com.tr/ip-hub').build();
