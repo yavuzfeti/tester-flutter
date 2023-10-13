@@ -30,10 +30,11 @@ dependencies:
 
   flutter_local_notifications: ^15.1.1
   flutter_background_service: ^5.0.1
-  firebase_messaging: ^14.6.9
-  flutter_background: ^1.2.0
+  #firebase_messaging: ^14.6.9
+  #flutter_background: ^1.2.0
   signalr_core: ^1.1.1
   permission_handler: ^11.0.1
+  workmanager: ^0.5.2
 
 
 #  audioplayers: ^3.0.1
