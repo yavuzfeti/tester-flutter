@@ -1,68 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:signalr_core/signalr_core.dart';
 import 'package:tester/BackgroundFront.dart';
+import 'package:tester/BackgroundTask.dart';
 import 'package:workmanager/workmanager.dart';
-
-final navKey = GlobalKey<NavigatorState>();
 
 Workmanager work = Workmanager();
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
-    work.executeTask((task, inputData) async
+  work.executeTask((task, inputData) async
+  {
+    int index = 1;
+
+    final hubConnection = HubConnectionBuilder().withUrl('https://kursdefteri.com.tr/ip-hub').build();
+
+    bildirim({required String mesage}) async
     {
-      print("çalışıyor");
-      return Future.value(true);
-    });
+      bool izin = true;
+      if(izin)
+      {
+        await FlutterLocalNotificationsPlugin().show(
+          index,
+          "Bildirim başlığı",
+          mesage,
+          const NotificationDetails(
+            android: AndroidNotificationDetails(
+              "kitx",
+              "kitx_channel",
+              priority: Priority.high,
+              importance: Importance.high,
+              icon: "@mipmap/ic_launcher",
+              color: Colors.blue,
+            ),
+          ),
+        );
+        index++;
+        print("\nBİLDİRİM\n: $mesage");
+      }
+    }
+
+    listenToNotificationStart() async
+    {
+      if (hubConnection.state == HubConnectionState.disconnected)
+      {
+        await hubConnection.start();
+        hubConnection.on('QrCodeRead', (arguments)
+        {
+          bildirim(mesage: arguments.toString());
+        });
+      }
+    }
+    print('çalışmaya başladı');
+    listenToNotificationStart();
+    return Future.value(true);
+  });
 }
 
-void main() async
+void main()
 {
   WidgetsFlutterBinding.ensureInitialized();
-  Workmanager().cancelAll();
-  work.initialize(
-      callbackDispatcher,
-      isInDebugMode: false
-  );
-  work.registerOneOffTask(
-    "periodic-task-identifier",
-    "simplePeriodicTask",
-      constraints: Constraints(
-          networkType: NetworkType.connected,
-          requiresBatteryNotLow: true,
-          requiresCharging: true,
-          requiresDeviceIdle: true,
-          requiresStorageNotLow: true
-      ),
-  );
-
   //Background.listenToNotificationStart();
+
+  // work.initialize(callbackDispatcher);
+  // work.registerOneOffTask(
+  //   "gorev",
+  //   "gorew",
+  //     constraints: Constraints(
+  //         networkType: NetworkType.connected,
+  //         requiresBatteryNotLow: true,
+  //         requiresCharging: true,
+  //         requiresDeviceIdle: true,
+  //         requiresStorageNotLow: true
+  //     ),
+  // );
+
+  Background.listenToNotificationStart();
 
   runApp(
       MaterialApp(
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-
-        supportedLocales: [
-          const Locale('tr', 'TR'),
-          const Locale('en', 'US'),
-          const Locale('de', ''),
-          const Locale('es', ''),
-        ],
-
-        locale: Locale('tr', 'TR'),
-
-        theme: ThemeData(
-          primaryColor: Colors.deepPurple,
-          primarySwatch: Colors.deepPurple,
-          hintColor: Colors.deepPurple,
-          brightness: Brightness.light,
-        ),
-        debugShowCheckedModeBanner: false,
-        navigatorKey: navKey,
         home: BackgroundFront(),
       ),
     );

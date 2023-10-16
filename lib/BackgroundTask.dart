@@ -54,6 +54,7 @@ class Background
         ),
       );
       index++;
+      print("\nBİLDİRİM\n: $mesage");
     }
   }
 
